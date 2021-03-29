@@ -29,7 +29,7 @@ export default function counterReducer(state = initialState, action) {
 
     case ActionTypes.CHANGE_THEME_COLOR:{
       const themeColorId = action.payload
-      console.log(state.themeColor , "color seted")
+      
       return{...state , themeColor:themeColorId}
     }
     

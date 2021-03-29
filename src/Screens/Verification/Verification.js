@@ -31,26 +31,31 @@ export default class VerificationScreen extends Component {
 
   state = {
     inputText: '',
+    isvalid:""
   };
 
   checkData = () => {
     // alert()
     const {userId} = this.props.route.params;
     const {otpInput} = this.state;
-    console.log(userId);
+    
+    this.setState({
+      isvalid:true
+  })
 
     actions
       .OTPVerify({userId, otp: otpInput, deviceToken: '123'})
       .then(response => {
         console.log(response, '   verify');
         // this.props.navigation.navigate("Ver" , {userId:response.data.userId})
-
+        this.setState({  isvalid:false })
         showMessage({
           type: 'success',
           message: 'OTP verified ',
         });
       })
       .catch(error => {
+
         this.setState({isvalid: false}),
           showMessage({
             type: 'danger',
@@ -62,7 +67,7 @@ export default class VerificationScreen extends Component {
   };
 
   render() {
-    const {navigate} = this.props.navigation;
+    const {isvalid} = this.state;
     const {phoneNumber} = this.props.route.params;
 
     return (
@@ -97,7 +102,8 @@ export default class VerificationScreen extends Component {
 
           <CustomButton
             buttonText={strings.GO_TO_HOMEPAGE}
-            onButtonCLick={() => this.checkData()}
+            onButtonCLick={() => this.checkData() }
+            isvalid={isvalid}
           />
         </View>
       </View>

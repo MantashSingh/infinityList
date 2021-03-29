@@ -17,42 +17,49 @@ export default class Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isModalVisible: false,
+      isMenuModalVisible: true,
+      selected:"",
       colors: [{
           id:0,
           name:"Blue",
           colorId:"#a0c4ff",
-          selected:false
+          
+
       },
       {
         id:1,
         name:'Yellow',
         colorId:"#ffc300",
-        selected:false
+        
+
     },
     {
         id:2,
         name:"Pink",
         colorId:"#ff006e",
-        selected:false
+        
+
     },
     {
         id:3,
         name:"Black",
         colorId:"#212529",
-        selected:false
+        
+
     },
     {
       id:4,
       name:"Green",
       colorId:"#007f5f",
-      selected:false
+      
+
   },
   {
     id:5,
     name:"Orange",
     colorId:"#ff9100",
-    selected:false
+    
+
 },
     ]
     };
@@ -62,16 +69,15 @@ export default class Profile extends Component {
     this.props.navigation.goBack(null);
     return true;
   }
+  _onSelect=(id)=>{
+    this.setState({selected:id})
+  }
 
-  _openModal = () => {
-    this.setState({isMenuModalVisible: true});
-  };
+  _openModal = () => { this.setState({isMenuModalVisible: true})   }
 
-  _closeModal = () => {
-    this.setState({isMenuModalVisible: false});
-  };
+  _closeModal = () => {   this.setState({isMenuModalVisible: false})  }
   render() {
-    const {isMenuModalVisible , colors} = this.state;
+    const {isMenuModalVisible , colors ,selected} = this.state;
 
     return (
       <View style={{flex: 1}}>
@@ -102,7 +108,7 @@ export default class Profile extends Component {
               numColumns={3}
               keyExtractor={(item) => item.id}
             //   ItemSeparatorComponent={() => <View style={{marginTop:10}} />}
-              renderItem={({item}) => <ColorsModal  data={item}/>}
+              renderItem={({item}) => <ColorsModal  data={item} onSelect={this._onSelect} selected={selected}/>}
               
             />
             

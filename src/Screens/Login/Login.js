@@ -39,8 +39,13 @@ export default class Login extends Component {
     
         let errorMessage = validations({phoneNumber:phoneNumber})
         // alert()
+        this.setState({
+            isvalid:true
+        })
         if (errorMessage) {
-    
+
+
+                 this.setState({  isvalid:false })
             showMessage({
                 message: errorMessage,
                 icon:"warning",
@@ -64,6 +69,8 @@ export default class Login extends Component {
               countryCodeISO: "IN"}
             })
                 .then(response => {
+
+                    this.setState({  isvalid:false })
                    
                         // console.log(response +"   1")
                         this.props.navigation.navigate("Verification" , {userId:response.data.userId ,phoneNumber:phoneNumber} )
@@ -93,6 +100,7 @@ export default class Login extends Component {
 
 
     render() {
+        const{isvalid} = this.state
         return (
             <View style={{flex:1}}>
                 <View style={styles.container}>
@@ -103,7 +111,7 @@ export default class Login extends Component {
                     onChangeText={this.setNumber}
                     />
                     </View>
-                    <CustomButton buttonText={strings.SEND_OTP} onButtonCLick={()=>this.checkData()}/>
+                    <CustomButton buttonText={strings.SEND_OTP} onButtonCLick={()=>this.checkData()} isvalid={isvalid}/>
 
 
                 </View>

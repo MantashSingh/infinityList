@@ -1,7 +1,7 @@
 import store from "../redux/store"
 
 export default{
-    themeColor :"#70e000",    
+    themeColor :"#538d22",    
     buttonText:"white",
     placeholderText:"gray",
     valueText:"black",
