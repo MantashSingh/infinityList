@@ -1,4 +1,4 @@
-import { apiDelete, apiGet, apiPost, apiPut, clearUserData, getItem, setItem, setUserData , } from '../../utils/utils';
+import { apiDelete, apiGet, apiPost, apiPut, clearUserData, getItem, getUserData, setItem, setUserData , } from '../../utils/utils';
 import { OTP_VERIFY ,LOGIN ,USER_SEARCH } from '../../config/urls';
 import types from '../types';
 import store from '../store';
@@ -12,7 +12,7 @@ export function loginWithOTP(data = {}) {
   return new Promise((resolve, reject) => {
     apiPost(LOGIN, data).then(res => {
     
-      console.log(res , "login with otp")
+      
      
 
       resolve(res);
@@ -48,7 +48,6 @@ export function OTPVerify(data = {}) {
 
 }
 
-
 export const onLogout=()=>{
   
   dispatch({
@@ -75,6 +74,14 @@ export function UserData(data = {}) {
 
 }
 
+
+export function ChangeThemeColor(themeColorId) {
+
+  dispatch({
+    type:types.CHANGE_THEME_COLOR,
+    payload:themeColorId
+  })
+}
 
 
 

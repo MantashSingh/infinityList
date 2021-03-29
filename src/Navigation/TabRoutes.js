@@ -4,6 +4,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {Profile , Home , List} from "../Screens/index";
 import colors from '../styles/colors';
 import imagePath from '../constants/imagePath';
+import { connect } from 'react-redux';
 
 
 // import imagePath from '../constants/imagePath';
@@ -11,11 +12,12 @@ import imagePath from '../constants/imagePath';
 
 const Tab = createBottomTabNavigator();
 
-function TabRoutes({navigation}) {
+function TabRoutes(props) {
+  const{themeColor} = props
   return (
 
     <Tab.Navigator tabBarOptions={{
-      activeTintColor: colors.themeColor,
+      activeTintColor: !!themeColor?themeColor:colors.themeColor,
 
   }}
   >
@@ -29,7 +31,7 @@ function TabRoutes({navigation}) {
               style={{width: 25,
                 height: 25,
                 marginTop: 10,  
-                tintColor: focused ? colors.themeColor : "gray",}}
+                tintColor: focused ? (!!themeColor?themeColor:colors.themeColor) : "gray",}}
           />
         )}}
         />
@@ -43,7 +45,7 @@ function TabRoutes({navigation}) {
                 style={{width: 25,
                   height: 25,
                   marginTop: 10,  
-                  tintColor: focused ? colors.themeColor : "gray",}}
+                  tintColor: focused ? (!!themeColor?themeColor:colors.themeColor): "gray",}}
             />
           )}}
       />
@@ -56,7 +58,7 @@ function TabRoutes({navigation}) {
                 style={{width: 25,
                   height: 25,
                   marginTop: 10,  
-                  tintColor: focused ? colors.themeColor : "gray",}}
+                  tintColor: focused ? (!!themeColor?themeColor:colors.themeColor) : "gray",}}
             />
           )}}
       />
@@ -65,7 +67,14 @@ function TabRoutes({navigation}) {
   );
 }
 
-export default TabRoutes;
+const mapStateToProps=state=>{
+  return {
+     
+      themeColor:state.auth.themeColor,
+  }
+}
+
+export default connect(mapStateToProps)(TabRoutes);
 
 const styles = StyleSheet.create({
   Icon: {

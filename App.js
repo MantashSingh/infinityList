@@ -9,16 +9,20 @@ import { connect , Provider } from 'react-redux';
 import types from './src/redux/types';
 
 
-
+const { dispatch } = store;
 export default class App extends Component {
-  componentDidMount(){
-    getUserData().then((res)=>{
-     if(res){
-      console.log(res , "=>inAPP")
-     }
-    }) 
-  
-    
+  componentDidMount() {
+    getUserData().then((userData) => {
+      if (userData) {
+        
+        dispatch({
+          type: types.OTP_VERIFY,
+          payload: userData 
+        })
+      }
+    })
+
+
   }
 
   render() {

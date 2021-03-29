@@ -27,7 +27,7 @@ export default function GoOutCard({data}) {
 const styles = StyleSheet.create({
   wraper: {
       flex:1,
-    borderWidth: 0,
+      
     borderRadius: 20,
     shadowColor: '#000',
     shadowOffset: {

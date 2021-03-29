@@ -1,7 +1,9 @@
 export default {
 
     OTP_VERIFY:"OTP_VERIFY",
-    ON_LOGOUT :"ON_LOGOUT"
+    ON_LOGOUT :"ON_LOGOUT",
+    SET_LOGIN :"SET_LOGIN",
+    CHANGE_THEME_COLOR : "CHANGE_THEME_COLOR"
 
 
     

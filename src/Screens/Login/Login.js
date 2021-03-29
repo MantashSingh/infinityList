@@ -57,7 +57,7 @@ export default class Login extends Component {
         const { phoneNumber} = this.state;
         // alert("hi")
     
-        if (this.isValidate()) {
+        if (this.isValidate()) { 
             
             actions.loginWithOTP({contactDetails:{phoneNo: (phoneNumber),
               countryCode: "+91",

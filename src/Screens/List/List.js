@@ -4,6 +4,8 @@ import actions from '../../redux/actions';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import InfiniteListCard from '../../Component/InfiniteListCard'
 import Header from '../../Component/Header';
+import strings from '../../constants/lang';
+import Loader from '../../Component/Loader';
 
 export default class Cart extends Component {
   constructor(props) {
@@ -51,7 +53,7 @@ export default class Cart extends Component {
     return (
       <View style={{flex:1}}>
         {/* <Text onPress={this.hitApiForUserData}> hit</Text> */}
-        <Header textData={"INFINTE LIST"} onBack={()=>alert("back ku jana hai ")}/>
+        <Header textData={strings.INFINITE_LIST} onBack={()=>alert("back ku jana hai ")}/>
 
         <FlatList
           data={userArray}
@@ -63,6 +65,7 @@ export default class Cart extends Component {
           onEndReached={this.hitApiForUserData}
           onEndReachedThreshold={1}
         />
+        
       </View>
     );
   }

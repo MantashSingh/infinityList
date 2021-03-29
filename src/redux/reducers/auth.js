@@ -1,10 +1,12 @@
 import {useState} from 'react';
 import {clearUserData} from '../../utils/utils';
 
+
 import ActionTypes from '../types';
 
 const initialState = {
   userData: {},
+  themeColor:""
   
   
 
@@ -14,16 +16,23 @@ export default function counterReducer(state = initialState, action) {
     
     case ActionTypes.OTP_VERIFY: {
       const userData = action.payload;
-      console.log(userData, "reducer UserData");
+     
       return {...state, userData};
     }
 
     case ActionTypes.ON_LOGOUT: {
       
       clearUserData();
-      // alert(state.userData)
+      
       return {...state, userData:{}};
     }
+
+    case ActionTypes.CHANGE_THEME_COLOR:{
+      const themeColorId = action.payload
+      console.log(state.themeColor , "color seted")
+      return{...state , themeColor:themeColorId}
+    }
+    
    
     default: {
       return {...state};
