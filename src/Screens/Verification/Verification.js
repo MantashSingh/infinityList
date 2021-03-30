@@ -47,7 +47,7 @@ export default class VerificationScreen extends Component {
       .OTPVerify({userId, otp: otpInput, deviceToken: '123'})
       .then(response => {
         console.log(response, '   verify');
-        // this.props.navigation.navigate("Ver" , {userId:response.data.userId})
+      
         this.setState({  isvalid:false })
         showMessage({
           type: 'success',
@@ -135,9 +135,11 @@ const styles = StyleSheet.create({
 
   textInputContainer: {
     marginBottom: 20,
+    
   },
   roundedTextInput: {
     borderRadius: 10,
     borderWidth: 1.5,
+    
   },
 });

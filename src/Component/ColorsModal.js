@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View , Image} from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View , Image , TouchableWithoutFeedback} from 'react-native'
 import { ceil } from 'react-native-reanimated'
 import {moderateScale , moderateScaleVertical} from "../styles/responsiveSize"
 import Loader from './Loader'
@@ -15,7 +15,7 @@ export default function ColorsModal( {data , onSelect , selected}) {
     }
     return (
         <View style={{flex:1 ,}}> 
-        <TouchableOpacity onPress={()=>selecteid(data.id)}>
+        <TouchableWithoutFeedback onPress={()=>selecteid(data.id)}>
         <View style={{backgroundColor:data.colorId , height:moderateScaleVertical(100) , borderRadius:10 ,flexDirection:'row' }}>
 
             <Text style={styles.dataText}>{data.name}</Text>
@@ -23,7 +23,7 @@ export default function ColorsModal( {data , onSelect , selected}) {
             
             
         </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
         </View>
     )
 }
