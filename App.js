@@ -8,10 +8,12 @@ import store from './src/redux/store';
 import { connect , Provider } from 'react-redux';
 import types from './src/redux/types';
 
-
+import SplashScreen from 'react-native-splash-screen'
 const { dispatch } = store;
 export default class App extends Component {
   componentDidMount() {
+
+    
     getUserData().then((userData) => {
       if (userData) {
         
@@ -19,8 +21,14 @@ export default class App extends Component {
           type: types.OTP_VERIFY,
           payload: userData 
         })
+        SplashScreen.hide();
       }
+      
+      else{SplashScreen.hide();}
     })
+    
+    
+    
 
 
   }

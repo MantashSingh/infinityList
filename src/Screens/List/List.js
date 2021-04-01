@@ -1,74 +1,157 @@
 import React, {Component} from 'react';
-import {Text, StyleSheet, View, FlatList} from 'react-native';
+import {Text,ActivityIndicator, StyleSheet, View, FlatList, RefreshControl} from 'react-native';
 import actions from '../../redux/actions';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import InfiniteListCard from '../../Component/InfiniteListCard'
 import Header from '../../Component/Header';
 import strings from '../../constants/lang';
 import Loader from '../../Component/Loader';
+import { connect } from 'react-redux';
+import colors from '../../styles/colors';
 
-export default class Cart extends Component {
+
+
+class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
       userArray: [],
       incressSkip: 0,
+      isvalid:false,
+       loading: false, // user list loading
+      isRefreshing: false, //for pull to refresh
+      isListEnd:false,
+      isNoMoreData: false,
+      isLoading: false,
+      isLoadingMore: false,
+      refreshing: false,
     };
   }
 
   componentDidMount() {
     this.hitApiForUserData();
   }
-  hitApiForUserData = () => {
-    const {userArray, incressSkip} = this.state;
+  hitApiForUserData = (onEndReachCall = false) => {
+    const {userArray, incressSkip , isvalid} = this.state;
+    let calcSkip = onEndReachCall ?  userArray.length : 0;
+
+    
     actions
-      .UserData({
+      .UserData({ 
         searchType: 'LEADERBOARD',
         limit: '4',
-        skip: incressSkip,
+        skip: calcSkip.toString(),
       })
-      .then(response => {
-        this.setState({
-          userArray: [...userArray, ...response.data],
-          incressSkip: incressSkip + 4,
-        });
+      .then(res => {
+        let updatedStateVar = {};
+        if (res.data.length > 0) {
+          let profilesData = onEndReachCall
+            ? [...userArray, ...res.data]
+            : res.data;
 
-        showMessage({
-          type: 'success',
-          message: 'loading...... ',
+          updatedStateVar = {
+            userArray: profilesData,
+          };
+        }else {
+          updatedStateVar = {
+            isListEnd: true,
+            isNoMoreData: true,
+          };
+        }
+        this.setState({
+          ...updatedStateVar,
+          
+          isvalid:true,
+          isRefreshing:false,
+          isLoading: false,
+          isLoadingMore: false,
+          refreshing: false,
+          
         });
+        console.log(userArray.length)
+
+        
       })
       .catch(error => {
         showMessage({
           type: 'danger',
           message: 'Login failed ',
         });
+        this.setState({
+          
+          isRefreshing:false,
+          isLoading: false, 
+          isLoadingMore: false
+          
+        });
 
         console.log(error);
       });
   };
 
+  _onLoading=()=>{
+    
+    const{isvalid} =this.state
+    const{themeColor} = this.props
+    return(
+    <View style={{height:50}}>
+      <Loader isvalid={true} loadColor={!!themeColor ? themeColor : colors.themeColor}/>
+      
+      </View>)    
+  }
+
+  onRefresh() {
+    this.setState({ isRefreshing: true }); // true isRefreshing flag for enable pull to refresh indicator
+    this.hitApiForUserData();
+  }
+  onEndReached = () => {
+    const {isLoadingMore, isNoMoreData} = this.state;
+
+    if (isLoadingMore || isNoMoreData) {
+      return;
+    }
+    this.setState({isLoadingMore: true});
+    this.hitApiForUserData(true);
+  };
+
+
   render() {
     const {userArray} = this.state;
+    const{themeColor} = this.props
     return (
       <View style={{flex:1}}>
         {/* <Text onPress={this.hitApiForUserData}> hit</Text> */}
-        <Header textData={strings.INFINITE_LIST} onBack={()=>alert("back ku jana hai ")}/>
+        <Header textData={strings.INFINITE_LIST} onBack={()=>alert("")}/>
 
         <FlatList
           data={userArray}
           showsVerticalScrollIndicator={false}
           numColumns={1}
           keyExtractor={item => item._id}
-          ItemSeparatorComponent={() => <View style={{margin: 10}} />}
+          // ItemSeparatorComponent={() =>  />}
           renderItem={({item}) => <InfiniteListCard data={item} />}
-          onEndReached={this.hitApiForUserData}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.isRefreshing}
+              onRefresh={this.onRefresh.bind(this)}
+            />
+          }
+          
+          onEndReached={this.onEndReached}
+          ListFooterComponent={()=>this._onLoading()}
           onEndReachedThreshold={1}
+         
         />
         
       </View>
     );
   }
-}
+}const mapStateToProps = state => {
+  return {
+    themeColor: state.auth.themeColor,
+  };
+};
+
+export default connect(mapStateToProps)(Cart);
 
 const styles = StyleSheet.create({});

@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
   },
   roundedTextInput: {
     borderRadius: 10,
-    borderWidth: 1.5,
+    borderWidth: 3,
     
   },
 });
