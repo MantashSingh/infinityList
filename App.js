@@ -9,9 +9,11 @@ import { connect , Provider } from 'react-redux';
 import types from './src/redux/types';
 
 import SplashScreen from 'react-native-splash-screen'
+import { getFCMToken } from './src/utils/pushNotification';
 const { dispatch } = store;
 export default class App extends Component {
   componentDidMount() {
+    getFCMToken()
 
     
     getUserData().then((userData) => {

@@ -9,6 +9,7 @@ export default{
     mail:require("../assets/images/mail.png"),
     google:require("../assets/images/google.png"),
     facebook:require("../assets/images/facebook.png"),
-    save:require("../assets/images/save.png"),
-    user:require("../assets/images/user.png")
+    user:require("../assets/images/user.png"),
+    dot:require('../assets/images/dot.png'),
+    search:require("../assets/images/search.png")
 }

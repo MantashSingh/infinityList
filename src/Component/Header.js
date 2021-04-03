@@ -8,22 +8,25 @@ import {moderateScale, moderateScaleVertical} from '../styles/responsiveSize';
 function Header(props) {
   const {textData, onBack, themeColor} = props;
   return (
-    <View style={{flexDirection: 'row' ,backgroundColor:!!themeColor ? themeColor : colors.themeColor , marginBottom:0 , borderBottomRightRadius:10 , borderBottomLeftRadius:10}} >
+    <View style={{ backgroundColor:!!themeColor ? themeColor : colors.themeColor , marginBottom:0}} >
       <TouchableOpacity onPress={() => onBack()} >
-        <Image source={imagePath.backIcon} 
+        {/* <Image source={imagePath.backIcon} 
         style={{
-            width: 40,
-            height: 40,
-            marginVertical: moderateScaleVertical(8),
-            marginHorizontal: moderateScaleVertical(15),
+            width: 30,
+            height: 30,
+            marginVertical: moderateScaleVertical(10),
+            marginHorizontal: moderateScaleVertical(10),
             tintColor: "white"
-          }} />
+          }} /> */}
       </TouchableOpacity>
       <Text
         style={{
-          marginVertical: 9,
-          fontSize: 25,
+          marginVertical: moderateScaleVertical(10),
+          fontSize: 20,
           color: "white",
+          textAlign:'center',
+          fontFamily:"OpenSans-Bold",
+          
         }}>
         {textData}
       </Text>

@@ -1,5 +1,5 @@
 import { apiDelete, apiGet, apiPost, apiPut, clearUserData, getItem, getUserData, setItem, setUserData , } from '../../utils/utils';
-import { OTP_VERIFY ,LOGIN ,USER_SEARCH } from '../../config/urls';
+import { OTP_VERIFY ,LOGIN ,USER_SEARCH , USER_NEAR_ME } from '../../config/urls';
 import types from '../types';
 import store from '../store';
 
@@ -81,6 +81,14 @@ export function ChangeThemeColor(themeColorId) {
     type:types.CHANGE_THEME_COLOR,
     payload:themeColorId
   })
+}
+
+
+
+export function search(searchText , cord) {
+  console.log(cord,"cords")
+  let URL = `${USER_NEAR_ME}` + `?name=${searchText}` +`&coordinates=["${cord.longitude}", "${cord.latitude}"]`
+  return apiGet(URL)
 }
 
 

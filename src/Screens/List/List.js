@@ -10,7 +10,6 @@ import { connect } from 'react-redux';
 import colors from '../../styles/colors';
 
 
-
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +24,7 @@ class Cart extends Component {
       isLoading: false,
       isLoadingMore: false,
       refreshing: false,
+      searchText:""
     };
   }
 
@@ -39,7 +39,7 @@ class Cart extends Component {
     actions
       .UserData({ 
         searchType: 'LEADERBOARD',
-        limit: '4',
+        limit: '8',
         skip: calcSkip.toString(),
       })
       .then(res => {
@@ -116,17 +116,18 @@ class Cart extends Component {
 
 
   render() {
-    const {userArray} = this.state;
+    const {userArray , searchText} = this.state;
     const{themeColor} = this.props
     return (
-      <View style={{flex:1}}>
+      <View>
         {/* <Text onPress={this.hitApiForUserData}> hit</Text> */}
         <Header textData={strings.INFINITE_LIST} onBack={()=>alert("")}/>
 
+
         <FlatList
           data={userArray}
-          showsVerticalScrollIndicator={false}
-          numColumns={1}
+          // showsVerticalScrollIndicator={false}
+          numColumns={2}
           keyExtractor={item => item._id}
           // ItemSeparatorComponent={() =>  />}
           renderItem={({item}) => <InfiniteListCard data={item} />}

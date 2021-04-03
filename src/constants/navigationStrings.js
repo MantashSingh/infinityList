@@ -4,5 +4,6 @@ export default{
     TAB_ROUTES : "TabRoutes",
     LIST : 'List',
     PROFILE : "Profile",
-    HOME :"Home"
+    HOME :"Home",
+    SEARCH :"Search"
 }

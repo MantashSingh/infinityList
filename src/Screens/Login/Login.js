@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, StyleSheet, View, TouchableOpacity, Image} from 'react-native';
-import TextInputComponent from '../../Component/TextaInputComponent';
+import TextInputComponent from '../../Component/TextInputComponent';
 import strings from '../../constants/lang';
 import CustomButton from '../../Component/CustomButton';
 import {showMessage, hideMessage} from 'react-native-flash-message';
@@ -9,7 +9,7 @@ import actions from '../../redux/actions';
 import imagePath from '../../constants/imagePath';
 import {connect} from 'react-redux';
 import colors from '../../styles/colors';
-
+import{moderateScale , moderateScaleVertical , scale} from "../../styles/responsiveSize"
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -270,12 +270,14 @@ const styles = StyleSheet.create({
   },
   footer:{
     flex:2,
+    
     position: 'absolute',
-    top:200,
+    top:moderateScaleVertical(220),
     paddingTop:70,
     backgroundColor:"white",
 
  borderTopLeftRadius: 100,
+ width:"100%"
  
   },
   container: {

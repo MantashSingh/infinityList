@@ -52,9 +52,9 @@ export default class Profile extends Component {
         },
       ],
     };
-    this.handleBackButtonClick = this.handleBackButtonClick.bind(this);
+    
   }
-  handleBackButtonClick() {
+  handleBackButtonClick=()=> {
     this.props.navigation.goBack(null);
     return true;
   }
